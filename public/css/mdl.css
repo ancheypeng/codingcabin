@@ -1,0 +1,500 @@
+.mdl-card {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 400;
+    min-height: 200px;
+    overflow: hidden;
+    width: 330px;
+    z-index: 1;
+    position: relative;
+    background: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(255,255,255,0)
+}
+
+.mdl-shadow--2dp {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
+}
+
+.mdl-card__supporting-text {
+    color: rgba(0,0,0,.54);
+    font-size: 1rem;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 16px;
+    width: 90%
+}
+
+.mdl-color-text--grey-600 {
+    color: #757575 !important
+}
+
+
+.mdl-textfield {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0
+}
+
+.mdl-textfield .mdl-button {
+    position: absolute;
+    bottom: 20px
+}
+
+.mdl-textfield--align-right {
+    text-align: right
+}
+
+.mdl-textfield--full-width {
+    width: 100%
+}
+
+.mdl-textfield--expandable {
+    min-width: 32px;
+    width: auto;
+    min-height: 32px
+}
+
+.mdl-textfield__input {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    display: block;
+    font-size: 16px;
+    font-family: "Helvetica","Arial",sans-serif;
+    margin: 0;
+    padding: 4px 0;
+    width: 100%;
+    background: 0 0;
+    text-align: left;
+    color: inherit
+}
+
+.mdl-textfield__input[type="number"] {
+    -moz-appearance: textfield
+}
+
+.mdl-textfield__input[type="number"]::-webkit-inner-spin-button,.mdl-textfield__input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.mdl-textfield.is-focused .mdl-textfield__input {
+    outline: none
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__input {
+    border-color: #d50000;
+    box-shadow: none
+}
+
+fieldset[disabled] .mdl-textfield .mdl-textfield__input,.mdl-textfield.is-disabled .mdl-textfield__input {
+    background-color: transparent;
+    border-bottom: 1px dotted rgba(0,0,0,.12);
+    color: rgba(0,0,0,.26)
+}
+
+.mdl-textfield textarea.mdl-textfield__input {
+    display: block
+}
+
+.mdl-textfield__label {
+    bottom: 0;
+    color: rgba(0,0,0,.26);
+    font-size: 16px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    top: 24px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left
+}
+
+.mdl-textfield.is-dirty .mdl-textfield__label,.mdl-textfield.has-placeholder .mdl-textfield__label {
+    visibility: hidden
+}
+
+.mdl-textfield--floating-label .mdl-textfield__label {
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1)
+}
+
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    transition: none
+}
+
+fieldset[disabled] .mdl-textfield .mdl-textfield__label,.mdl-textfield.is-disabled.is-disabled .mdl-textfield__label {
+    color: rgba(0,0,0,.26)
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: rgb(255,152,0);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__expandable-holder .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__expandable-holder .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__expandable-holder .mdl-textfield__label {
+    top: -16px
+}
+
+.mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    color: #d50000;
+    font-size: 12px
+}
+
+.mdl-textfield__label:after {
+    background-color: rgb(255,152,0);
+    bottom: 20px;
+    content: '';
+    height: 2px;
+    left: 45%;
+    position: absolute;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    visibility: hidden;
+    width: 10px
+}
+
+.mdl-textfield.is-focused .mdl-textfield__label:after {
+    left: 0;
+    visibility: visible;
+    width: 100%
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__label:after {
+    background-color: #d50000
+}
+
+.mdl-textfield__error {
+    color: #d50000;
+    position: absolute;
+    font-size: 12px;
+    margin-top: 3px;
+    visibility: hidden;
+    display: block
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__error {
+    visibility: visible
+}
+
+.mdl-textfield__expandable-holder {
+    display: inline-block;
+    position: relative;
+    margin-left: 32px;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    display: inline-block;
+    max-width: .1px
+}
+
+.mdl-textfield.is-focused .mdl-textfield__expandable-holder,.mdl-textfield.is-dirty .mdl-textfield__expandable-holder {
+    max-width: 600px
+}
+
+.mdl-textfield__expandable-holder .mdl-textfield__label:after {
+    bottom: 0
+}
+
+
+
+.mdl-textfield--floating-label .mdl-textfield__label {
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1)
+}
+
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    transition: none
+}
+
+fieldset[disabled] .mdl-textfield .mdl-textfield__label,.mdl-textfield.is-disabled.is-disabled .mdl-textfield__label {
+    color: rgba(0,0,0,.26)
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: rgb(255,152,0);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__expandable-holder .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__expandable-holder .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__expandable-holder .mdl-textfield__label {
+    top: -16px
+}
+
+.mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    color: #d50000;
+    font-size: 12px
+}
+
+
+.mdl-textfield__input {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    display: block;
+    font-size: 16px;
+    font-family: "Helvetica","Arial",sans-serif;
+    margin: 0;
+    padding: 4px 0;
+    width: 100%;
+    background: 0 0;
+    text-align: left;
+    color: inherit
+}
+
+.mdl-textfield__input[type="number"] {
+    -moz-appearance: textfield
+}
+
+.mdl-textfield__input[type="number"]::-webkit-inner-spin-button,.mdl-textfield__input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.mdl-textfield.is-focused .mdl-textfield__input {
+    outline: none
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__input {
+    border-color: #d50000;
+    box-shadow: none
+}
+
+fieldset[disabled] .mdl-textfield .mdl-textfield__input,.mdl-textfield.is-disabled .mdl-textfield__input {
+    background-color: transparent;
+    border-bottom: 1px dotted rgba(0,0,0,.12);
+    color: rgba(0,0,0,.26)
+}
+
+.mdl-textfield textarea.mdl-textfield__input {
+    display: block
+}
+
+
+
+.mdl-textfield__label {
+    bottom: 0;
+    color: rgba(0,0,0,.26);
+    font-size: 16px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    top: 24px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left
+}
+
+.mdl-textfield.is-dirty .mdl-textfield__label,.mdl-textfield.has-placeholder .mdl-textfield__label {
+    visibility: hidden
+}
+
+.mdl-textfield--floating-label .mdl-textfield__label {
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1)
+}
+
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    transition: none
+}
+
+fieldset[disabled] .mdl-textfield .mdl-textfield__label,.mdl-textfield.is-disabled.is-disabled .mdl-textfield__label {
+    color: rgba(0,0,0,.26)
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: rgb(255,152,0);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__expandable-holder .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__expandable-holder .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__expandable-holder .mdl-textfield__label {
+    top: -16px
+}
+
+.mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    color: #d50000;
+    font-size: 12px
+}
+
+.mdl-textfield__label:after {
+    background-color: rgb(255,152,0);
+    bottom: 20px;
+    content: '';
+    height: 2px;
+    left: 45%;
+    position: absolute;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    visibility: hidden;
+    width: 10px
+}
+
+.mdl-textfield.is-focused .mdl-textfield__label:after {
+    left: 0;
+    visibility: visible;
+    width: 100%
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__label:after {
+    background-color: #d50000
+}
+
+
+.mdl-snackbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    cursor: default;
+    background-color: #323232;
+    z-index: 3;
+    display: block;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    will-change: transform;
+    -webkit-transform: translate(0,80px);
+    transform: translate(0,80px);
+    transition: transform .25s cubic-bezier(.4,0,1,1);
+    transition: transform .25s cubic-bezier(.4,0,1,1),-webkit-transform .25s cubic-bezier(.4,0,1,1);
+    pointer-events: none
+}
+
+@media (max-width: 479px) {
+    .mdl-snackbar {
+        width:100%;
+        left: 0;
+        min-height: 48px;
+        max-height: 80px
+    }
+}
+
+@media (min-width: 480px) {
+    .mdl-snackbar {
+        min-width:288px;
+        max-width: 568px;
+        border-radius: 2px;
+        -webkit-transform: translate(-50%,80px);
+        transform: translate(-50%,80px)
+    }
+}
+
+.mdl-snackbar--active {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    pointer-events: auto;
+    transition: transform .25s cubic-bezier(0,0,.2,1);
+    transition: transform .25s cubic-bezier(0,0,.2,1),-webkit-transform .25s cubic-bezier(0,0,.2,1)
+}
+
+@media (min-width: 480px) {
+    .mdl-snackbar--active {
+        -webkit-transform:translate(-50%,0);
+        transform: translate(-50%,0)
+    }
+}
+
+.mdl-snackbar__text {
+    padding: 14px 12px 14px 24px;
+    vertical-align: middle;
+    color: #fff;
+    float: left
+}
+
+.mdl-snackbar__action {
+    background: 0 0;
+    border: none;
+    color: rgb(83,109,254);
+    float: right;
+    padding: 14px 24px 14px 12px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0;
+    overflow: hidden;
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center
+}
+
+.mdl-snackbar__action::-moz-focus-inner {
+    border: 0
+}
+
+.mdl-snackbar__action:not([aria-hidden]) {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.mdl-snackbar__text {
+    padding: 14px 12px 14px 24px;
+    vertical-align: middle;
+    color: #fff;
+    float: left
+}
+
+.mdl-snackbar__action {
+    background: 0 0;
+    border: none;
+    color: rgb(83,109,254);
+    float: right;
+    padding: 14px 24px 14px 12px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0;
+    overflow: hidden;
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center
+}
+
+.mdl-snackbar__action::-moz-focus-inner {
+    border: 0
+}
+
+.mdl-snackbar__action:not([aria-hidden]) {
+    opacity: 1;
+    pointer-events: auto
+}

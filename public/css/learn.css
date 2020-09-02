@@ -1,0 +1,111 @@
+html, body{
+    background-color:#202020;
+    color:white;
+}
+
+p{
+    font-size:18px;
+    margin-top:5px;
+}
+
+#title{
+    margin-top: 150px;
+    font-size: 50px;
+}
+
+#description{
+    margin-top: 40px;
+    font-size: 22px;
+}
+
+.course-title{
+    margin-top: 60px;
+}
+
+.accordion{
+    border:none;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color:black;
+}
+
+.card{
+    border-radius: 0 !important;
+	border-left: 5px solid #53708b;
+}
+
+.card-header{
+    cursor: pointer;
+    padding: 20px 20px;
+}
+
+.card-header:hover{
+    -webkit-transition: 400ms ease;
+    -moz-transition: 400ms ease;
+    -o-transition: 400ms ease;
+    transition: 400ms ease;
+
+    background-color:#ebebeb;
+}
+
+.card-header > p{
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.collapse{
+    border-top:#cfcfcf;
+}
+
+.arrow-down {
+    float:right;
+    margin-right: 20px;
+    margin-top: 8px;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    
+    border-top: 10px solid black;
+}
+
+.card-body{
+    padding:0;
+}
+
+.lesson-part{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.lesson{
+    padding-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.lesson:hover{
+    -webkit-transition: 400ms ease;
+    -moz-transition: 400ms ease;
+    -o-transition: 400ms ease;
+    transition: 400ms ease;
+
+    background-color: #ebebeb;
+    cursor:pointer;
+}
+
+a.vid-link {
+    all: unset;
+}
+a.vid-link:hover{
+    all:unset;
+}
+
+.big-number{
+    color:#1c3147;
+    font-size: 48px;
+    margin-top: -5px;
+    margin-left:20px;
+}

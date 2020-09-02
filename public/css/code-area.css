@@ -1,0 +1,202 @@
+html, body{
+  background-color: #363D4F;
+}
+
+#firepad-control{
+  margin-top:85px;
+  width: 90vw;
+}
+
+#firepad-control section{
+  margin: 6px 12px;
+}
+
+.form-group{
+  border-radius: 5px;
+  background-color: #26a68d;
+  height:38px;
+  padding: 0 10px;
+}
+
+#clear-terminal{
+  float:right;
+  margin-right: 0px !important;
+}
+
+#firepad-container {
+  margin-top:5px;
+  width: 90vw;
+  height: 75vh;
+  background: #eaeaea;
+  -moz-box-shadow: 0 5px 25px black;
+  -webkit-box-shadow: 0 5px 25px black;
+  box-shadow: 0 5px 25px black;
+  overflow: hidden;
+}
+
+#firepad-userlist {
+  position: relative;
+  left: 0;
+  top: 0;
+  bottom: 100px;
+  width: 175px;
+  height: 55vh;
+}
+
+#firepad {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  height: 75vh;
+  padding-right:5px;
+}
+
+#firepad * ::-webkit-scrollbar-track{
+  border-radius: 6px;
+  background-color: #282D3A;
+}
+
+#firepad * ::-webkit-scrollbar{
+  width: 8px;
+  background-color: #282D3A;
+}
+
+#firepad * ::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: #191c25;
+}
+
+.CodeMirror {
+  font-size: 16px
+}
+
+.CodeMirror-gutters{
+  padding-right: 6px;
+}
+
+#terminal{
+  overflow-y: auto;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  font-size: 16px;
+  width: 50%;
+  height: 75vh;
+  padding: 4px 18px;
+}
+
+#terminal p, pre{
+  color: white;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  margin: 0 0;
+  line-height: normal;
+}
+
+#terminal::-webkit-scrollbar-track{
+  border-radius: 6px;
+  background-color: black;
+}
+
+#terminal::-webkit-scrollbar{
+  width: 8px;
+  background-color: black;
+}
+
+#terminal::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: #191c25;
+}
+
+#indicator{
+  color:greenyellow !important;
+}
+
+#run-btn{
+  position: relative;
+  bottom: 52px;
+}
+
+.btn-info{
+  border-color: #26a68d;
+  border-radius: 5px;
+  background-color: #26a68d !important;
+  font-size: 16px;
+  color: white !important;
+}
+
+.btn-info:hover{
+  transition: 300ms ease;
+  border-color: #1a7564;
+  background-color: #1a7564 !important;
+}
+
+.btn-info:focus, .btn-info:active{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-info:disabled{
+  pointer-events:none;
+}
+
+.scrollable-menu::-webkit-scrollbar-track{
+  border-radius: 6px;
+  background-color: #f1f1f1;
+}
+
+.scrollable-menu::-webkit-scrollbar{
+  width: 8px;
+  background-color: #ffffff;
+}
+
+.scrollable-menu::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: #c1c1c1;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.dropdown-item:active{
+  background-color: #f2f2f2 !important;
+  color: black !important;
+}
+
+a.powered-by-firepad {
+  display: none;
+}
+  
+#resize-wrapper{
+  background-color:black;
+  width: calc(90vw - 175px);
+  margin: 0 0;
+}
+
+.ui-resizable-e { 
+  cursor: e-resize; 
+  width: 10px; 
+  right: -5px; 
+  top: 0; 
+  bottom: 0; 
+  background: #475068 url('media/black.png') center/2px 40px;
+  background-repeat: no-repeat;
+}
+
+.ui-resizable {
+  position: relative;
+}
+
+.ui-resizable-handle { 
+  position: absolute;font-size: 0.1px; display: block;
+}

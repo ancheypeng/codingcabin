@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-WLGTZT2');</script>
+    <!-- End Google Tag Manager -->
+
+    <title>Page Not Found</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="shortcut icon" href="css/media/icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/main.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+
+    <style media="screen">
+      html, body{ background-color:#202020; color:black; }
+      #message { background: rgb(238, 238, 238); max-width: 360px; margin: 200px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 18px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLGTZT2" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <nav id="home-nav" class="navbar fixed-top navbar-expand-lg">
+      <button id="navCollapse" class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100">
+          <a class="navbar-brand" href="#">
+            <img src="css/media/icon.png" width="35" height="35" alt="Coding Cabin">
+          </a>
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html#home">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="learn.html">Learn</a>
+          </li>
+          <li class="nav-item">
+            <div id="codenow-dropdown" class="dropdown">
+              <a class="nav-link" href="code-area" target="_blank">Code Now</a>
+              <div id="codenow-menu" class="dropdown-menu">
+                <div id="menu-arrow-border"></div>
+                <div id="menu-arrow"></div>
+                <a class="dropdown-item" href="code-area" target="_blank">Terminal</a>
+                <a class="dropdown-item" href="javascript:;" onclick="joinMatchmaking()">Pair Up &nbsp;&nbsp;
+                  <b class="beta" data-toggle="tooltip" data-placement="bottom" title="Beta">&beta;</b>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <a class="navbar-brand" onclick="changeToEvening()">
+            <img id="sun" src="css/media/Sun.png" width="20" height="20" alt="Day">
+          </a>
+          <a class="navbar-brand" onclick="changeToNight()">
+            <img id="moon" src="css/media/Moon.png" width="20" height="20" alt="Night">
+          </a>
+          <li class="nav-item active">
+            <a class="nav-link" href="contact">Contact<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a id="signin-btn" class="nav-link" href="login.html" target="_blank">Sign In<span
+                class="sr-only">(current)</span></a>
+          </li>
+          <a class="navbar-brand">
+            <img id="user-icon" alt="User Icon"></img>
+          </a>
+        </ul>
+      </div>
+    </nav>
+    
+    <div id="pairup-toast" class="toast" data-autohide="false">
+      <div class="toast-header">
+        <!--
+                        <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <rect width="100%" height="100%" fill="#007aff" />
+                        </svg>
+                    -->
+        <div class="loader">
+          <svg viewBox="0 0 80 80">
+            <rect x="8" y="8" width="64" height="64"></rect>
+          </svg>
+        </div>
+        <strong class="mr-auto">Pair Up &nbsp;&nbsp; <b data-toggle="tooltip" data-placement="bottom"
+            title="Beta">&beta;</b></strong>
+        <small id="timer">00:00</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"
+          onclick="joinMatchmaking.leave()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        <div id="searching">
+          <h6>Searching for a partner...</h6>
+          <p><b>Expected Wait Time... 00:15</b></p>
+          <!-- ADD LATER MAYBE <p>Users Online... <span id="usersonline-counter">0</span></p> -->
+          <p>Users Searching... <span id="userssearching-counter">0</span></p>
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="toast"
+            onclick="joinMatchmaking.leave()">Cancel</button>
+        </div>
+        <div id="found">
+          <h6>Your Partner is Ready!</h6>
+          <button id="accept-btn" type="button" class="btn btn-success btn-lg"
+            onclick="joinMatchmaking.accept()">Accept</button>
+          <br>
+          <small id="countdown">00:20</small>
+        </div>
+      </div>
+    </div>
+
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+    </div>
+
+    <!-- BOOTSTRAP IMPORTS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="js/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+html, body{
+    background-color:#202020;
+    color:white;
+}
+
+#title{
+    margin-top: 150px;
+    font-size: 50px;
+}
+
+h2{
+    margin-top:50px;
+}
+
+p{
+    font-size:22px;
+    margin-top:20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+b{
+    font-weight: 700;
+    font-size:24px;
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://codingcabin.org/</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/learn</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/code-area</loc>
+  <lastmod>2019-09-08T16:23:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/contact</loc>
+  <lastmod>2019-09-08T16:23:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/pair-programming</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/1-What-is-Python</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/2-Variables-IO</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/3-Operators</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/4-Booleans-Conditionals</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/5-Strings</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/6-Loops</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/vid-pages/7-Functions</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://codingcabin.org/404</loc>
+  <lastmod>2019-09-08T06:10:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

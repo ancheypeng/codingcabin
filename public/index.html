@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang='en'>
+    
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WLGTZT2');</script>
+        <!-- End Google Tag Manager -->
+
+        <title>Coding Cabin</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Coding Cabin is a new and innovative educational tool for aspiring computer scientists.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" href="css/media/icon.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/home.css">
+
+        <!-- Odometer Imports -->
+        <link rel="stylesheet" href="css/odometer.css">
+        
+        <!-- Firebase Import -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+    
+    </head>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLGTZT2" height="0" width="0"
+                style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <nav id="home-nav" class="navbar fixed-top navbar-expand-lg">
+            <button id="navCollapse" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto w-100">
+                    <a class="navbar-brand" href="#">
+                        <img src="css/media/icon.png" width="35" height="35" alt="Coding Cabin">
+                    </a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html#home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="learn.html">Learn</a>
+                    </li>
+                    <li class="nav-item">
+                        <div id="codenow-dropdown" class="dropdown">
+                            <a class="nav-link" href="code-area" target="_blank">Code Now</a>
+                            <div id="codenow-menu" class="dropdown-menu">
+                                <div id="menu-arrow-border"></div>
+                                <div id="menu-arrow"></div>
+                                <a class="dropdown-item" href="code-area" target="_blank">Terminal</a>
+                                <a class="dropdown-item" href="javascript:;" onclick="joinMatchmaking()">Pair Up &nbsp;&nbsp; 
+                                    <b class="beta" data-toggle="tooltip" data-placement="bottom" title="Beta">&beta;</b>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto w-100 justify-content-end">
+                    <a class="navbar-brand" onclick="changeToEvening()">
+                        <img id="sun" src="css/media/Sun.png" width="20" height="20" alt="Day">
+                    </a>
+                    <a class="navbar-brand" onclick="changeToNight()">
+                        <img id="moon" src="css/media/Moon.png" width="20" height="20" alt="Night">
+                    </a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="contact">Contact<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a id="signin-btn"class="nav-link" href="login.html" target="_blank">Sign In<span class="sr-only">(current)</span></a>
+                    </li>
+                    <a class="navbar-brand">
+                        <img id="user-icon" alt="User Icon"></img>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        
+        <div id="pairup-toast" class="toast" data-autohide="false">
+            <div class="toast-header">
+                <!--
+                    <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                    <rect width="100%" height="100%" fill="#007aff" />
+                    </svg>
+                -->
+                <div class="loader">
+                    <svg viewBox="0 0 80 80">
+                        <rect x="8" y="8" width="64" height="64"></rect>
+                    </svg>
+                </div>
+                <strong class="mr-auto">Pair Up &nbsp;&nbsp; <b data-toggle="tooltip" data-placement="bottom" title="Beta">&beta;</b></strong>
+                <small id="timer">00:00</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" onclick="joinMatchmaking.leave()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div id="searching">
+                    <h6>Searching for a partner...</h6>
+                    <p><b>Expected Wait Time... 00:15</b></p>
+                    <!-- ADD LATER MAYBE <p>Users Online... <span id="usersonline-counter">0</span></p> -->
+                    <p>Users Searching... <span id="userssearching-counter">0</span></p>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="toast" onclick="joinMatchmaking.leave()">Cancel</button>
+                </div>
+                <div id="found">
+                    <h6>Your Partner is Ready!</h6>
+                    <button id="accept-btn" type="button" class="btn btn-success btn-lg" onclick="joinMatchmaking.accept()">Accept</button>
+                    <br>
+                    <small id="countdown">00:20</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="nonplax-container"></div>
+
+        <div class="plax-container" id="parallax">
+            <div class="parallax-layer parallax" id="layer-0" data-speed="1"></div>
+            <div class="parallax-layer parallax" id="layer-1" data-speed="6"></div>
+            <div class="parallax-layer parallax" id="layer-2" data-speed="15"></div>
+            <div class="parallax-layer parallax" id="layer-3" data-speed="26"></div>
+            <div class="parallax-layer parallax" id="layer-4" data-speed="26"></div>
+            <div class="parallax-layer parallax" id="layer-5" data-speed="40"></div>
+            <div class="parallax-layer parallax" id="layer-6" data-speed="50"></div>
+            <div class="parallax-layer parallax" id="layer-7" data-speed="70"></div>
+            <div class="parallax-layer" id="layer-8" data-speed="100"></div>
+        </div>
+        
+        <div id="content">
+            <div id="transition-arrow"></div>
+            
+            <div class="container">
+
+                <div class="row justify-content-center">
+                    <h1 id="motto">Redefining the way we learn to code, through free, real-time pair programming.</h1>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div id="notification" class="alert alert-secondary alert-dismissible fade show" role="alert">
+                        Coding Cabin is still under development, bugs and errors may occur. Please contact us to report them.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <a id="learn" class="btn btn-light btn-lg" href="learn.html" role="button">Start Learning</a>
+                    <a id="code-now" class="btn btn-light btn-lg" href="code-area" target="_blank" role="button">Code Now</a>
+                </div>
+
+            </div>
+
+            <div id="counters-container" class="container-fluid">
+                <hr>
+                <div id="counters" class="row justify-content-center">
+                    <div class="counter col-lg-3">
+                        <span id="visits-counter" class="odometer"></span>
+                        <h4 >Page <br> Visits</h4>
+                    </div>
+                    <div class="counter col-lg-3">
+                        <span id="videos-watched-counter" class="odometer"></span>
+                        <h4>Videos <br> Watched</h4>
+                    </div>
+                    <div class="counter col-lg-3">
+                        <span id="lines-run-counter" class="odometer"></span>
+                        <h4>Lines of <br> Code Run</h4>
+                    </div>
+                </div>
+                <hr>
+            </div>
+                
+
+            <div class="container">
+
+                <div id="top" class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="row justify-content-center">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <div id="explain" >
+                            <h4><b>What is pair programming?</b></h4>
+                            <p>
+                                Pair programming is an innovative method of coding that involves two individuals who switch off between different
+                                roles, the "driver", who focuses on writing the code, and the "navigator", who reviews the code offers recommendations.
+                            </p>
+                            <a id="learn-more" class="btn btn-dark" href="pair-programming.html" role="button">Learn more</a>
+                        </div>
+                        <div class="row justify-content-center">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img class="step" src="css/media/step1.png" alt="Step 1">
+                            </div>
+                            <div class="col-sm-7 step-text">
+                                <h3>Watch</h3>
+                                <p>Our instructional videos teach a variety of coding topics from basics to advanced concepts.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img class="step" src="css/media/step2.png" alt="Step 2">
+                            </div>
+                            <div class="col-sm-7 step-text">
+                                <h3>Connect</h3>
+                                <p>Work with a friend, or we can match you with someone learning the same material.</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img class="step" src="css/media/step3.png" alt="Step 3">
+                            </div>
+                            <div class="col-sm-7 step-text">
+                                <h3>Practice</h3>
+                                <p>We provide a variety of practice problems for you to refine your coding skills.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <img class="step" src="css/media/step4.png" alt="Step 4">
+                            </div>
+                            <div class="col-sm-7 step-text">
+                                <h3>Code</h3>
+                                <p>Code real-world, applicable projects by yourself or with a partner.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="features-container" class="container">
+                <div class="row justify-content-center">
+                    <h1>Latest Features</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="feature-img" src="css/media/videoFeature.png" alt="Videos">
+                                <h3 class="card-title">Educational Videos</h3>
+                                <p class="card-text">Our website has a variety of educational videos on topics such as Python programming and
+                                     Android app development. Start learning now and kick off your programming career!</p>
+                                <div class="text-center">
+                                    <a class="btn btn-dark" href="learn.html" role="button">Start Learning</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="feature-img" src="css/media/terminalFeature.png" alt="Videos">
+                                <h3 class="card-title">Collaborative Terminal</h3>
+                                <p class="card-text">Our collaborative coding terminal lets you write and test your code by yourself or with your friends.
+                                    It also comes with a live chat feature for you to communicate with each other while coding!
+                                </p>
+                                <div class="text-center">
+                                    <a class="btn btn-dark" href="code-area" role="button">Code Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="feature-img" src="css/media/pairFeature.png" alt="Videos">
+                                <h3 class="card-title">Pair Up</h3>
+                                <p class="card-text">Our brand new "Pair Up" feature is a matchmaking system that will partner you up with another user. 
+                                    Hopefully, this will make pair programming easier and more accessible!
+                                </p>
+                                <div class="text-center">
+                                    <a class="btn btn-dark" href="javascript:;" role="button" onclick="joinMatchmaking()">Pair Up &nbsp; 
+                                        <b class="beta" data-toggle="tooltip" data-placement="bottom" title="Beta">&beta;</b>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer"></div>
+
+        </div>
+            
+
+
+        <!-- BOOTSTRAP IMPORTS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+        <!-- Typed disabled
+            <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
+        -->
+
+        <script type="text/javascript" src="js/home.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/odometer.js"></script>
+    
+        
+
+    </body>
+</html>  

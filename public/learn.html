@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WLGTZT2');</script>
+    <!-- End Google Tag Manager -->
+
+    <title>Coding Cabin</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="css/media/icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/learn.css">
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLGTZT2" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <nav id="home-nav" class="navbar fixed-top navbar-expand-lg">
+        <button id="navCollapse" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto w-100">
+                <a class="navbar-brand" href="#">
+                    <img src="css/media/icon.png" width="35" height="35" alt="Coding Cabin">
+                </a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html#home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="learn.html">Learn</a>
+                </li>
+                <li class="nav-item">
+                    <div id="codenow-dropdown" class="dropdown">
+                        <a class="nav-link" href="code-area" target="_blank">Code Now</a>
+                        <div id="codenow-menu" class="dropdown-menu">
+                            <div id="menu-arrow-border"></div>
+                            <div id="menu-arrow"></div>
+                            <a class="dropdown-item" href="code-area" target="_blank">Terminal</a>
+                            <a class="dropdown-item" href="javascript:;" onclick="joinMatchmaking()">Pair Up &nbsp;&nbsp;
+                                <b class="beta" data-toggle="tooltip" data-placement="bottom" title="Beta">&beta;</b>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto w-100 justify-content-end">
+                <a class="navbar-brand" onclick="changeToEvening()">
+                    <img id="sun" src="css/media/Sun.png" width="20" height="20" alt="Day">
+                </a>
+                <a class="navbar-brand" onclick="changeToNight()">
+                    <img id="moon" src="css/media/Moon.png" width="20" height="20" alt="Night">
+                </a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="contact">Contact<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a id="signin-btn" class="nav-link" href="login.html" target="_blank">Sign In<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <a class="navbar-brand">
+                    <img id="user-icon" alt="User Icon"></img>
+                </a>
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="pairup-toast" class="toast" data-autohide="false">
+        <div class="toast-header">
+            <!--
+                        <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <rect width="100%" height="100%" fill="#007aff" />
+                        </svg>
+                    -->
+            <div class="loader">
+                <svg viewBox="0 0 80 80">
+                    <rect x="8" y="8" width="64" height="64"></rect>
+                </svg>
+            </div>
+            <strong class="mr-auto">Pair Up &nbsp;&nbsp; <b data-toggle="tooltip" data-placement="bottom"
+                    title="Beta">&beta;</b></strong>
+            <small id="timer">00:00</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"
+                onclick="joinMatchmaking.leave()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div id="searching">
+                <h6>Searching for a partner...</h6>
+                <p><b>Expected Wait Time... 00:15</b></p>
+                <!-- ADD LATER MAYBE <p>Users Online... <span id="usersonline-counter">0</span></p> -->
+                <p>Users Searching... <span id="userssearching-counter">0</span></p>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="toast"
+                    onclick="joinMatchmaking.leave()">Cancel</button>
+            </div>
+            <div id="found">
+                <h6>Your Partner is Ready!</h6>
+                <button id="accept-btn" type="button" class="btn btn-success btn-lg"
+                    onclick="joinMatchmaking.accept()">Accept</button>
+                <br>
+                <small id="countdown">00:20</small>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h1 id="title">Courses</h1>
+        
+        <p id="description">From coding simple python scripts, to creating advanced machine learning models, Coding Cabin 
+            offers a plethora of courses that fit any learners need - all for free. Test out our collaborative learning environment, 
+            and maybe, just maybe you will code the next big thing.
+        </p>
+
+        <h2 class="course-title">Python</h2>
+
+        <!--COURSE ONE ACCORDION-->
+
+        <div class="accordion" id="course-one">
+            <div class="card">
+                <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapse-one" aria-expanded="true" aria-controls="collapseOne">
+                    <h3 class="mb-0">Intro to Python</h3>
+                    <div class="arrow-down"></div>
+                    <p>The perfect course for beginners or amateurs who want a foothold into programming!</p>
+                </div>
+        
+                <div id="collapse-one" class="collapse" aria-labelledby="headingOne" data-parent="#course-one">
+                    <div class="card-body">
+
+                        <!--LESSONS-->
+                        <a href="vid-pages/Intro-to-Python/1-What-is-Python.html" class="vid-link">
+                            <div class="lesson row justify-content-center">
+                                <div class="col-1 big-number">1</div>
+                                <div class="col-10">
+                                    <h4>What is Python?</h4>
+                                    <p>Dive into one of the most popular programming languages!</p>
+                                </div>
+                            </div>
+                        </a>
+                        
+                        <a href="vid-pages/Intro-to-Python/2-Variables-IO.html" class="vid-link">
+                            <div class="lesson row justify-content-center">
+                                <div class="col-1 big-number">2</div>
+                                <div class="col-10">
+                                    <h4>Variables & Input-Output</h4>
+                                    <p>Learn the fundamentals of storing data using variables and communicating with the computer.</p>
+                                </div>
+                            </div>
+                        </a>
+                        
+                        <a href="vid-pages/Intro-to-Python/3-Operators.html" class="vid-link">
+                            <div class="lesson row justify-content-center">
+                                <div class="col-1 big-number">3</div>
+                                <div class="col-10">
+                                    <h4>Operators</h4>
+                                    <p>This lesson teaches how to perform mathematical, logical, or relational operations on data.</p>
+                                </div>
+                            </div>
+                        </a>
+                        
+
+                        <!--VIEW MORE LESSONS COLLAPSE-->
+                        
+                        <div class="lesson row justify-content-center">
+                            <p>
+                                <a class="btn btn-dark" data-toggle="collapse" href="#viewmore-one" role="button" aria-expanded="false"
+                                    aria-controls="viewmore-one">
+                                    View more lessons
+                                </a>
+                            </p>
+                            
+                        </div>
+                      
+                        <div class="collapse" id="viewmore-one">
+                            <div id="view-more-lessons">
+                            
+                                <!--VIEW MORE LESSONS-->
+                                
+                                <a href="vid-pages/Intro-to-Python/4-Booleans-Conditionals.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">4</div>
+                                        <div class="col-10">
+                                            <h4>Booleans & Conditionals</h4>
+                                            <p>Learn how to convey true and false to the computer and execute code based on the result.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <a href="vid-pages/Intro-to-Python/5-Strings.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">5</div>
+                                        <div class="col-10">
+                                            <h4>Strings</h4>
+                                            <p>Explore the data typed used to store words, sentences, and more.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <a href="vid-pages/Intro-to-Python/6-Loops.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">6</div>
+                                        <div class="col-10">
+                                            <h4>Loops</h4>
+                                            <p>In this lesson, you will learn how to repeat lines of code multiple times in an efficient way.</p>
+                                        </div>
+                                    </div>
+                                </a>    
+                                
+                                <a href="vid-pages/Intro-to-Python/7-Functions.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">7</div>
+                                        <div class="col-10">
+                                            <h4>Functions</h4>
+                                            <p>This lesson teaches how to write functions - an essential aspect of coding.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="course-title">App Development</h2>
+
+        <!--COURSE TWO ACCORDION-->
+        
+        <div class="accordion" id="course-two">
+            <div class="card">
+                <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapse-two" aria-expanded="true"
+                    aria-controls="collapseTwo">
+                    <h3 class="mb-0">Android App Development for Beginners</h3>
+                    <div class="arrow-down"></div>
+                    <p>Learn the fundamentals of app development and start coding your own Android apps!</p>
+                </div>
+        
+                <div id="collapse-two" class="collapse" aria-labelledby="headingTwo" data-parent="#course-two">
+                    <div class="card-body">
+        
+                        <!--LESSONS-->
+                        <div class="lesson-part row justify-content-center">
+                            <div class="col-11">
+                                <h4>Part 1: Introduction</h4>
+                            </div>
+                        </div>
+                        
+                        <a href="vid-pages/Android-Beginners/1-Introduction.html" class="vid-link">
+                            <div class="lesson row justify-content-center">
+                                <div class="col-1 big-number">1</div>
+                                <div class="col-10">
+                                    <h4>Introduction</h4>
+                                    <p>A brief overview of what this course will cover.</p>
+                                </div>
+                            </div>
+                        </a>
+                        
+                        <a href="vid-pages/Android-Beginners/2-Installing-Android-Studio.html" class="vid-link">
+                            <div class="lesson row justify-content-center">
+                                <div class="col-1 big-number">2</div>
+                                <div class="col-10">
+                                    <h4>Installing Android Studio</h4>
+                                    <p>Learn how to install Android Studio -- an IDE for creating Android apps.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="vid-pages/Android-Beginners/3-Creating-a-New-Project.html" class="vid-link">
+                            <div class="lesson row justify-content-center">
+                                <div class="col-1 big-number">3</div>
+                                <div class="col-10">
+                                    <h4>Creating a New Project</h4>
+                                    <p>Start coding your first Android app in this tutorial.</p>
+                                </div>
+                            </div>
+                        </a>
+        
+                        <!--VIEW MORE LESSONS COLLAPSE-->
+        
+                        <div class="lesson row justify-content-center">
+                            <p>
+                                <a class="btn btn-dark" data-toggle="collapse" href="#viewmore-two" role="button"
+                                    aria-expanded="false" aria-controls="viewmore-two">
+                                    View more lessons
+                                </a>
+                            </p>
+        
+                        </div>
+        
+                        <div class="collapse" id="viewmore-two">
+                            <div id="view-more-lessons">
+        
+                                <!--VIEW MORE LESSONS-->
+                                
+                                <div class="lesson-part row justify-content-center">
+                                    <div class="col-11">
+                                        <h4>Part 2: Simple Timer App</h4>
+                                    </div>
+                                </div>
+
+                                <a href="vid-pages/Android-Beginners/4-Timer-App-Demo.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">4</div>
+                                        <div class="col-10">
+                                            <h4>Timer App Demo</h4>
+                                            <p>A short demonstration of the timer app you will create.</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="vid-pages/Android-Beginners/5-Editing-Text-and-Displaying-Messages.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">5</div>
+                                        <div class="col-10">
+                                            <h4>Editing Text & Displaying Messages</h4>
+                                            <p>Learn how to edit text in your app and display messages to the user.</p>
+                                        </div>
+                                    </div>
+                                </a>    
+
+                                <a href="vid-pages/Android-Beginners/6-Floating-Action-Button.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">6</div>
+                                        <div class="col-10">
+                                            <h4>Floating Action Button</h4>
+                                            <p>This lesson teaches you how to utilize the floating action button.</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="vid-pages/Android-Beginners/7-Handlers-and-Runnables.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">7</div>
+                                        <div class="col-10">
+                                            <h4>Handlers & Runnables</h4>
+                                            <p>Explore the various uses of handlers and runnables in your app.</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="lesson-part row justify-content-center">
+                                    <div class="col-11">
+                                        <h4>Part 3: Notes App</h4>
+                                    </div>
+                                </div>
+
+                                <a href="vid-pages/Android-Beginners/8-Notes-App-Demo.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">8</div>
+                                        <div class="col-10">
+                                            <h4>Notes App Demo</h4>
+                                            <p>A short demonstration of the notes app you will create.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <a href="vid-pages/Android-Beginners/9-Layout.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">9</div>
+                                        <div class="col-10">
+                                            <h4>Layout</h4>
+                                            <p>Learn how to control the layout of your app and position the components of your app.</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="vid-pages/Android-Beginners/10-Saving-Data-and-Intents.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">10</div>
+                                        <div class="col-10">
+                                            <h4>Saving Data & Intents</h4>
+                                            <p>Find out how to save data onto the device and send requests between your app components.</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="vid-pages/Android-Beginners/11-Notes-App-Walkthrough.html" class="vid-link">
+                                    <div class="lesson row justify-content-center">
+                                        <div class="col-1 big-number">11</div>
+                                        <div class="col-10">
+                                            <h4>Notes App Walkthrough</h4>
+                                            <p>In this lesson, you will finish coding the rest of your notes app.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+        <!--COURSE THREE ACCORDION-->
+<!--
+        <div class="accordion" id="course-three">
+            <div class="card">
+                <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapse-three" aria-expanded="true"
+                    aria-controls="collapseThree">
+                    <h3 class="mb-0">Intermediate Python - Coming Soon!</h3>
+                    <div class="arrow-down"></div>
+                    <p>Designed for those who have some coding knowledge and want to further their understanding of Python programming!</p>
+                </div>
+        
+                <div id="collapse-three" class="collapse" aria-labelledby="headingThree" data-parent="#course-three">
+                    <div class="card-body">
+                    
+                    
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">1</div>
+                            <div class="col-10">
+                                <h4>Tuples & Lists</h4>
+                                <p>Learn how to store multiple values into a tuple or a list.</p>
+                            </div>
+                        </div>
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">2</div>
+                            <div class="col-10">
+                                <h4>References</h4>
+                                <p>Explore the computing behind saved data.</p>
+                            </div>
+                        </div>
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">3</div>
+                            <div class="col-10">
+                                <h4>Oriented Programming (OOP)</h4>
+                                <p>Learn how to use objects which contain their own attributes and procedures.</p>
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="lesson row justify-content-center">
+                            <p>
+                                <a class="btn btn-dark" data-toggle="collapse" href="#viewmore-three" role="button" aria-expanded="false"
+                                    aria-controls="viewmore-three">
+                                    View more lessons
+                                </a>
+                            </p>
+                    
+                        </div>
+                    
+                        <div class="collapse" id="viewmore-three">
+                            <div id="view-more-lessons">
+                    
+                    
+                                <div class="lesson row justify-content-center">
+                                    <div class="col-1 big-number">4</div>
+                                    <div class="col-10">
+                                        <h4>2-Dimensional Lists</h4>
+                                        <p>In this lesson, learn to create 2 dimensional lists, or lists of lists.</p>
+                                    </div>
+                                </div>
+                                <div class="lesson row justify-content-center">
+                                    <div class="col-1 big-number">5</div>
+                                    <div class="col-10">
+                                        <h4>...and more</h4>
+                                        <p>Coming Soon!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+-->
+        <!--COURSE FOUR ACCORDION-->
+
+        <!--
+        <div class="accordion" id="course-three">
+            <div class="card">
+                <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapse-three" aria-expanded="true"
+                    aria-controls="collapseOne">
+                    <h3 class="mb-0">Advanced Python</h3>
+                    <div class="arrow-down"></div>
+                    <p>Learn difficult coding concepts and techniques on the road to Python mastery!</p>
+                </div>
+        
+                <div id="collapse-three" class="collapse" aria-labelledby="headingOne" data-parent="#course-three">
+                    <div class="card-body">
+                    
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">1</div>
+                            <div class="col-10">
+                                <h4>Polymorphism & Inheritance</h4>
+                                <p>Coming Soon!</p>
+                            </div>
+                        </div>
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">2</div>
+                            <div class="col-10">
+                                <h4>Recursion</h4>
+                                <p>Coming Soon!</p>
+                            </div>
+                        </div>
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">3</div>
+                            <div class="col-10">
+                                <h4>Python Graphics</h4>
+                                <p>Coming Soon!</p>
+                            </div>
+                        </div>
+                    
+                        <div class="lesson row justify-content-center">
+                            <p>
+                                <a class="btn btn-dark" data-toggle="collapse" href="#viewmore-three" role="button" aria-expanded="false"
+                                    aria-controls="viewmore-three">
+                                    View more lessons
+                                </a>
+                            </p>
+                    
+                        </div>
+                    
+                        <div class="collapse" id="viewmore-three">
+                            <div id="view-more-lessons">
+                    
+                                <div class="lesson row justify-content-center">
+                                    <div class="col-1 big-number">4</div>
+                                    <div class="col-10">
+                                        <h4>Advanced Recursion</h4>
+                                        <p>Coming Soon!</p>
+                                    </div>
+                                </div>
+                                <div class="lesson row justify-content-center">
+                                    <div class="col-1 big-number">5</div>
+                                    <div class="col-10">
+                                        <h4>...and more</h4>
+                                        <p>Coming Soon!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+        <h2 class="course-title">Java</h2>
+
+        <!--COURSE ONE ACCORDIAN-->
+        
+        <div class="accordion" id="course-four">
+            <div class="card">
+                <div class="card-header" id="headingFour" data-toggle="collapse" data-target="#collapse-four" aria-expanded="true"
+                    aria-controls="collapseFour">
+                    <h3 class="mb-0">Intro to Java</h3>
+                    <div class="arrow-down"></div>
+                    <p>Coming Soon!</p>
+                </div>
+        
+                <div id="collapse-four" class="collapse" aria-labelledby="headingFour" data-parent="#course-four">
+                    <div class="card-body">
+        
+                        <!--LESSONS-->
+        
+                        <div class="lesson row justify-content-center">
+                            <div class="col-1 big-number">1</div>
+                            <div class="col-10">
+                                <h4>What is Java?</h4>
+                                <p>Coming Soon!</p>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- BOOTSTRAP IMPORTS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/login.js"></script>
+</body>
+
+</html>

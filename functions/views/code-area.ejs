@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang='en'>
+    
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WLGTZT2');</script>
+        <!-- End Google Tag Manager -->
+
+        <title>Coding Cabin</title>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+        <link rel="shortcut icon" href="css/media/icon.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+        
+        <!-- CodeMirror -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
+    
+        <!-- Firepad -->
+        <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
+        <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
+        <script src="js/firepad-userlist.js"></script>
+        <link rel="stylesheet" href="css/firepad-userlist.css" />
+
+        <!-- CodeMirror Addons -->
+        <script src="js/python.js"></script>
+        <script src="css/cm/closebrackets.js"></script>
+        <script src="css/cm/matchbrackets.js"></script>
+        <link rel="stylesheet" href="css/cm/monokai.css"/>
+        
+
+        <link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/code-area.css">
+        <link rel="stylesheet" href="css/switches.css">
+
+        <!-- CHAT IMPORTS -->
+        
+        <!-- Material Design Lite -->
+        <link rel="stylesheet" href="css/mdl.css">
+        <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+        
+        <link rel="stylesheet" href="css/chat.css">
+
+    </head>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLGTZT2" height="0" width="0"
+                style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <nav id="home-nav" class="navbar fixed-top navbar-expand-lg">
+            <button id="navCollapse" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto w-100">
+                    <a class="navbar-brand" href="#">
+                        <img src="css/media/icon.png" width="35" height="35" alt="Coding Cabin">
+                    </a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html#home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="learn.html">Learn</a>
+                    </li>
+                    <li class="nav-item">
+                        <div id="codenow-dropdown" class="dropdown">
+                            <a class="nav-link" href="code-area" target="_blank">Code Now</a>
+                            <div id="codenow-menu" class="dropdown-menu">
+                                <div id="menu-arrow-border"></div>
+                                <div id="menu-arrow"></div>
+                                <a class="dropdown-item" href="code-area" target="_blank">Terminal</a>
+                                <a class="dropdown-item" href="javascript:;" onclick="joinMatchmaking()">Pair Up &nbsp;&nbsp;
+                                    <b class="beta" data-toggle="tooltip" data-placement="bottom" title="Beta">&beta;</b>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto w-100 justify-content-end">
+                    <a class="navbar-brand" onclick="changeToEvening()">
+                        <img id="sun" src="css/media/Sun.png" width="20" height="20" alt="Day">
+                    </a>
+                    <a class="navbar-brand" onclick="changeToNight()">
+                        <img id="moon" src="css/media/Moon.png" width="20" height="20" alt="Night">
+                    </a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="contact">Contact<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a id="signin-btn" class="nav-link" href="login.html" target="_blank">Sign In<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <a class="navbar-brand">
+                        <img id="user-icon" alt="User Icon"></img>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        
+        <div id="pairup-toast" class="toast" data-autohide="false">
+            <div class="toast-header">
+                <!--
+                            <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                            preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                            <rect width="100%" height="100%" fill="#007aff" />
+                            </svg>
+                        -->
+                <div class="loader">
+                    <svg viewBox="0 0 80 80">
+                        <rect x="8" y="8" width="64" height="64"></rect>
+                    </svg>
+                </div>
+                <strong class="mr-auto">Pair Up &nbsp;&nbsp; <b data-toggle="tooltip" data-placement="bottom"
+                        title="Beta">&beta;</b></strong>
+                <small id="timer">00:00</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"
+                    onclick="joinMatchmaking.leave()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div id="searching">
+                    <h6>Searching for a partner...</h6>
+                    <p><b>Expected Wait Time... 00:15</b></p>
+                    <!-- ADD LATER MAYBE <p>Users Online... <span id="usersonline-counter">0</span></p> -->
+                    <p>Users Searching... <span id="userssearching-counter">0</span></p>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="toast"
+                        onclick="joinMatchmaking.leave()">Cancel</button>
+                </div>
+                <div id="found">
+                    <h6>Your Partner is Ready!</h6>
+                    <button id="accept-btn" type="button" class="btn btn-success btn-lg"
+                        onclick="joinMatchmaking.accept()">Accept</button>
+                    <br>
+                    <small id="countdown">00:20</small>
+                </div>
+            </div>
+        </div>
+        
+        <div id="firepad-control" class="container-fluid">
+            <div class="row">
+                <div class="col-10">
+                    <div class="row">
+                        <section>
+                            <!-- Workspaces Dropdown Menu -->
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Workspaces
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div id="my-pads-list" class="scrollable-menu"></div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#clear-modal">Clear All</a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <a class="btn btn-info" href="code-area" id="create-pad" role="button">New</a>
+                        </section>
+
+                        <section>
+                            <div class="form-group">
+                                <span class="switch switch-sm">
+                                    <input type="checkbox" class="switch" id="theme-switch" onclick="changeTheme()">
+                                    <label id="theme-label" for="theme-switch">Theme</label>
+                                </span>
+                            </div>
+                        </section>
+
+                        <section>
+                            <button id="lock-btn" type="button" class="btn btn-info" data-toggle="modal" data-target="#lock-modal">Lock</button>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <section id="clear-terminal">
+                        <button class="btn btn-info" type="button" onclick="clearTerminal()">Clear</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firepad -->
+        <div class="container-fluid" id="firepad-container">
+            <div class="row">
+                <div id="buttons"></div>
+                <div id="firepad-userlist"></div>
+                <div id="resize-wrapper" class="row">
+                    <div id="firepad"></div>
+                    <div id="terminal">
+                        <p id="default">Code output terminal<br>Click run to test your code! <br> </p>
+                        <div id="output">
+                            
+                        </div>
+                        <p id="indicator">> <br></p>
+                    </div>
+                </div>
+            </div>
+            <button id="run-btn" type="button" class="btn btn-info" onclick="getData()">Run &nbsp; &#9655;</button>
+        </div>
+
+        <!-- Clear All Modal -->
+        <div id="clear-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ClearModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Clear Workspaces</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to clear your saved workspaces? They will not be accessible again through this menu.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="clearStorage()">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lock Firepad Modal -->
+        
+        <div id="lock-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="LockModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Lock Firepad</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to lock this firepad and disable editing? This action <b>cannot</b> be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="lockFirepad()">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="open-chat" onclick="openChat()"></div>
+    
+        <div id="messages-card-container">
+            <!-- Messages container -->
+            <div id="messages-card"
+                class="mdl-card mdl-shadow--2dp">
+    
+                <div id="messages-header">
+                    <img id="close-chat" src="css/media/close.svg" alt="X" height="22" width="22" onclick="closeChat()">
+                </div>
+    
+                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                    <div id="messages">
+                    </div>
+                    <form id="message-form" action="#">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+                            <label class="mdl-textfield__label" for="message">Message...</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    
+            <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action" type="button"></button>
+            </div>
+    
+        </div>
+        
+
+        <div id="footer"></div>
+
+        <!-- FIREPAD IMPORTS -->
+       <!--
+        <script src="https://www.firepad.io/js/jquery-1.9.1.min.js"></script>
+       --> 
+
+        <!-- BOOTSTRAP IMPORTS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+       <!-- jQuery UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/code-area.js"></script>
+        <script type="text/javascript" src="js/chat.js"></script>
+
+    </body>
+</html>  

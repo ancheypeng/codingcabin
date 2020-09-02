@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang='en'>
+    
+    <head>
+        <title>Coding Cabin</title>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" href="css/media/icon.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+        
+        <!-- CodeMirror -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
+    
+        <!-- Firepad -->
+        <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
+        <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
+        <script src="js/firepad-userlist.js"></script>
+        <link rel="stylesheet" href="css/firepad-userlist.css" />
+
+        <!-- CodeMirror Addons -->
+        <script src="js/python.js"></script>
+        <script src="css/cm/closebrackets.js"></script>
+        <script src="css/cm/matchbrackets.js"></script>
+        <link rel="stylesheet" href="css/cm/monokai.css"/>
+
+        <link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/code-area.css">
+        <link rel="stylesheet" href="css/switches.css">
+        
+    </head>
+    <body>
+        
+        <nav class="navbar fixed-top navbar-expand-lg">
+            <button id="navCollapse" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto w-100">
+                    <a class="navbar-brand" href="#">
+                        <img src="css/media/icon.png" width="35" height="35" alt="Coding Cabin">
+                    </a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html#home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="learn.html">Learn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="code-area" target="_blank">Code Now</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto w-100 justify-content-end">
+                    <a class="navbar-brand" onclick="changeToEvening()">
+                        <img id="sun" src="css/media/Sun.png" width="20" height="20" alt="Day">
+                    </a>
+                    <a class="navbar-brand" onclick="changeToNight()">
+                        <img id="moon" src="css/media/Moon.png" width="20" height="20" alt="Night">
+                    </a>
+                    <li id="nav-contact" class="nav-item active">
+                        <a class="nav-link" href="contact">Contact<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <button id="signin-btn" class="nav-link" onclick="googleSignIn()"></button>
+                    </li>
+                    <a class="navbar-brand">
+                        <img id="user-icon" alt="User Icon"></img>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        
+        <div id="firepad-control" class="container-fluid">
+            <div class="row">
+                <div class="col-10">
+                    <div class="row">
+                        <section>
+                            <!-- Workspaces Dropdown Menu -->
+                            <div class="dropdown">
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Workspaces
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div id="my-pads-list" class="scrollable-menu"></div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#clear-modal">Clear All</a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <a class="btn btn-success" href="code-area" id="create-pad" role="button">New</a>
+                        </section>
+
+                        <section>
+                            <div class="form-group">
+                                <span class="switch switch-sm">
+                                    <input type="checkbox" class="switch" id="theme-switch" onclick="changeTheme()">
+                                    <label id="switch-label" for="theme-switch">Theme</label>
+                                </span>
+                            </div>
+                        </section>
+                        
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <section id="clear-terminal">
+                        <button class="btn btn-success" type="button" onclick="clearTerminal()">Clear</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firepad -->
+        <div class="container-fluid" id="firepad-container">
+            <div class="row">
+                <div id="buttons"></div>
+                <div id="firepad-userlist"></div>
+                <div id="resize-wrapper" class="row">
+                    <div id="firepad"></div>
+                    <div id="terminal">
+                        <p id="default">Code output terminal<br>Click run to test your code! <br> </p>
+                        <div id="output">
+                            
+                        </div>
+                        <p id="indicator">> <br></p>
+                    </div>
+
+                </div>
+            </div>
+            <button id="run-btn" type="button" class="btn btn-success" onclick="getData()">Run &nbsp; &#9655;</button>
+        </div>
+
+        <!-- Clear All Modal -->
+        <div id="clear-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ClearModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Clear Workspaces</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to clear your saved workspaces? They will not be accessible again through this menu.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="clearStorage()">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer"></div>
+
+        <!-- FIREPAD IMPORTS -->
+       <!--
+        <script src="https://www.firepad.io/js/jquery-1.9.1.min.js"></script>
+       --> 
+        
+        <!-- BOOTSTRAP IMPORTS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+       <!-- jQuery UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/code-area.js"></script>
+
+    </body>
+</html>  
