@@ -16,9 +16,6 @@ const stripAnsi = require('strip-ansi');
 const Convert = require('ansi-to-html');
 const convert = new Convert();
 
-//$env:GOOGLE_APPLICATION_CREDENTIALS="C:/Users/Anchey Peng/Desktop/CodeUstuff/IMPORTANT-ADMIN-KEY/codeu-b2047-firebase-adminsdk-z5azl-bb6caa4f6f.json"
-//var serviceAccount = require("C:/Users/Anchey Peng/Desktop/CodeUstuff/IMPORTANT-ADMIN-KEY/codeu-b2047-firebase-adminsdk-z5azl-bb6caa4f6f.json");
-
 admin.initializeApp({
     credential: admin.credential.applicationDefault(),
     databaseURL: 'https://codeu-b2047.firebaseio.com'
